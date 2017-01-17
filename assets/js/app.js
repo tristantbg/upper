@@ -101,16 +101,14 @@ $(function() {
             }
         },
         updateShadow: function(target, time, x, y) {
-            var w = target.outerWidth() / 2;
-            var h = target.outerHeight() / 2;
+            var w = target.outerWidth();
+            var h = target.outerHeight();
             x = typeof x !== 'undefined' ? x : target.offset().left;
             y = typeof y !== 'undefined' ? y : target.offset().top;
-            var shadowX = -(1 - ((x + w) * 2) / width) * maxShadow;
-            var shadowY = -(1 - ((y + h) * 2) / height) * maxShadow * 1.5;
-            if (shadowX > maxShadow) shadowX = maxShadow;
+            var shadowX = -(1 - (x + w) / width) * maxShadow;
+            var shadowY = (y / height) * maxShadow;
             if (shadowX < -maxShadow) shadowX = -maxShadow;
             if (shadowY > maxShadow) shadowY = maxShadow;
-            if (shadowY < -maxShadow) shadowY = -maxShadow;
             TweenLite.fromTo(target, time, {
                 'boxShadow': '0 0 0 rgba(0,0,0,0.3)'
             }, {
