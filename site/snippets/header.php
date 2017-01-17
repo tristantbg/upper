@@ -87,3 +87,9 @@
 	<span>di</span>
 	<span>o</span>
 </header>
+
+<nav id="menu">
+	<?php foreach ($pages->visible() as $key => $p): ?>
+		<span><a data-target="<?= tagslug($p->title()) ?>"><?= $p->title()->html() ?></a></span>
+	<?php endforeach ?>
+</nav>

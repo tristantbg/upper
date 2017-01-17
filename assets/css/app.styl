@@ -12,7 +12,6 @@ $sm = 768px
 $primary ?= #fff
 $secondary ?= #000
 $accent ?= #ff0000
-$stroke ?= rgba(0,0,0,0.3)
 
 // Metrics
 $padding = 1rem
@@ -37,7 +36,6 @@ body
 	font-size 1.3rem
 	+above($sm + 1)
 		overflow hidden
-		font-size 1.4rem
 
 h2
 	text-transform uppercase
@@ -45,7 +43,7 @@ h2
 
 p
 	margin-bottom 1em
-	line-height 150%
+	line-height 100%
 
 p:last-child
 	margin-bottom 0
@@ -69,10 +67,6 @@ a, a:hover, a:visited, a:focus
 	text-decoration none
 	cursor pointer
 
-.incrust
-	mix-blend-mode luminosity
-	vendor(filter,contrast(0.7))
-
 table.index
 	border none
 	white-space nowrap
@@ -91,7 +85,7 @@ table.index
 		content ''
 		display inline-block
 		height 1px
-		background $stroke
+		background $secondary
 		width 100%
 	td:nth-child(2)
 		padding-left .3em
@@ -125,13 +119,13 @@ header, nav#menu
 	font-size 9vmax
 	+above($sm + 1)
 		font-size 14vh
-		height 60%
+		height 100%
 		flexbox()
 		flex-direction column
 		justify-content space-between
 		z-index 5
 	+above($md + 1)
-		font-size 12vh
+		font-size 17.7vh
 	span
 		display block
 
@@ -178,20 +172,19 @@ nav#menu
 	+above($sm + 1)
 		position absolute
 		visibility hidden
-		padding 1.5em
 	+below($sm)
 		display inline-block
 		transform(none !important)
 		width 90%
 		margin-bottom 2em
-		box-shadow(5px 5px 0 $stroke !important)
+		box-shadow(5px 5px 0 rgba(0,0,0,0.2) !important)
 	.topbar
 		span(1)
 		flexbox()
 		justify-content space-between
 		flex-direction row
 		padding-bottom 1em
-		border-bottom 1px solid $stroke
+		border-bottom 1px solid
 		h2
 			width 100%
 			text-align center
@@ -241,12 +234,12 @@ nav#menu
 		text-align justify
 
 .post-it.medium
-	width 300px
+	width 250px
 	+below($sm)
 		width 75%
 
 .post-it.small
-	width 300px
+	width 200px
 	+below($sm)
 		width 60%
 		min-width 200px
@@ -257,10 +250,4 @@ nav#menu
 .post-it.hide
 	+above($sm + 1)
 		display none
-
-.post-it.full
-	padding 0
-	.topbar
-		display none
-	.item-content-item
-		margin 0
+	

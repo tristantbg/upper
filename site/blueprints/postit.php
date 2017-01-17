@@ -8,8 +8,8 @@ fields:
     label: Title
     type:  text
     width: 1/2
-  fullbleed:
-    label: Full bleed / no title
+  nodesktop:
+    label: Hide on desktop
     type: toggle
     default: no
     options: yes/no

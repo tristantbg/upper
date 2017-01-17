@@ -1,12 +1,18 @@
 <?php snippet('header') ?>
 
+<div id="view">
+	<img src="<?= $page->view()->toFile()->url() ?>" alt="<?= $site->title()->html() ?>" width="auto" height="100%">
+</div>
+
 <div id="post-it-container">
 
 <?php foreach ($pages->visible()->children()->visible() as $key => $postit): ?>
 
-	<div class="post-it <?= tagslug($postit->parent()->title()) ?>-item <?= $postit->size() ?><?php e($postit->fullbleed()->bool(), ' full') ?>"<?php e($postit->color()->isNotEmpty(), 'style="background-color: '.$postit->color().'"') ?>>
+	<div class="post-it <?= tagslug($postit->parent()->title()) ?>-item <?= $postit->size() ?><?php e($postit->nodesktop()->bool(), ' hide') ?>"<?php e($postit->color()->isNotEmpty(), 'style="background-color: '.$postit->color().'"') ?>>
 		<div class="topbar">
+			<div class="close"><span></span><span></span></div>
 			<h2><?= $postit->title()->html() ?></h2>
+			<div class="move"><span></span><span></span><span></span></div>
 		</div>
 		<div class="item-content">
 			<?php if($postit->text()->isNotEmpty()): ?>

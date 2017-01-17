@@ -16,34 +16,45 @@ $(function() {
                 app.sizeSet();
                 // var gridWidth = 200;
                 // var gridHeight = 100;
-                Draggable.create('.post-it', {
-                    bounds: document.getElementById("post-it-container"),
-                    throwProps: true,
-                    edgeResistance: 0.9,
-                    // snap: {
-                    //     x: function(endValue) {
-                    //         return Math.round(endValue / gridWidth) * gridWidth;
-                    //     },
-                    //     y: function(endValue) {
-                    //         return Math.round(endValue / gridHeight) * gridHeight;
-                    //     }
-                    // },
-                    onDrag: function() {
-                        app.updateShadow($(this.target), 0, this.x, this.y);
-                    },
-                    onThrowUpdate: function() {
-                        app.updateShadow($(this.target), 0, this.x, this.y);
-                    },
-                    onDragEnd: function() {
-                        app.updateShadow($(this.target), 0, this.x, this.y);
-                    }
+                $.each($('.post-it'), function(index, e) {
+                    var triggerEl = $(e).find(".move");
+                    Draggable.create(e, {
+                        //type: "top,left",
+                        bounds: document.getElementById("post-it-container"),
+                        trigger: triggerEl,
+                        throwProps: true,
+                        edgeResistance: 0.9,
+                        // snap: {
+                        //     x: function(endValue) {
+                        //         return Math.round(endValue / gridWidth) * gridWidth;
+                        //     },
+                        //     y: function(endValue) {
+                        //         return Math.round(endValue / gridHeight) * gridHeight;
+                        //     }
+                        // },
+                        onDrag: function() {
+                            app.updateShadow($(this.target), 0, this.x, this.y);
+                        },
+                        onThrowUpdate: function() {
+                            app.updateShadow($(this.target), 0, this.x, this.y);
+                        },
+                        onDragEnd: function() {
+                            app.updateShadow($(this.target), 0, this.x, this.y);
+                        }
+                    });
                 });
                 $body.on('click', '[data-target]', function(event) {
                     event.preventDefault();
                     var target = $(this).data('target');
+                    var zIndex = 0;
+                    $('.post-it').each(function(index, el) {
+                        thisZ = $(this).css('z-index');
+                        if (thisZ > zIndex) zIndex = thisZ;
+                    });
                     var elems = $('.post-it.' + target + '-item:not(".visible")');
                     if (elems.length > 0) {
-                        elems.addClass('visible');
+                        elems.addClass('visible').css('z-index', zIndex + 1);
+                        app.updateShadow(elems, 0.6);
                     }
                 });
                 $body.on('click', '.close', function(event) {
@@ -78,41 +89,33 @@ $(function() {
         },
         placePostIt: function() {
             if (!isMobile) {
-                $postit = $('.post-it');
-                var interval = 500;
-                $postit.each(function() {
+                $('.post-it').each(function() {
                     var el = $(this);
                     el.removeClass('visible');
                     var randX = rand(100, width - el.outerWidth() - 100);
                     var randY = rand(100, height - el.outerHeight() - 100);
                     TweenLite.to(el, 0, {
                         x: randX,
-                        y: randY,
-                        onComplete: function(){
-                          app.updateShadow(el);
-                        }
+                        y: randY
                     });
-                    setTimeout(function() {
-                        el.addClass('visible');
-                    }, interval);
-                    interval += 500;
                 });
-                
             }
         },
         updateShadow: function(target, time, x, y) {
-            var w = target.outerWidth();
-            var h = target.outerHeight();
+            var w = target.outerWidth() / 2;
+            var h = target.outerHeight() / 2;
             x = typeof x !== 'undefined' ? x : target.offset().left;
             y = typeof y !== 'undefined' ? y : target.offset().top;
-            var shadowX = -(1 - (x + w) / width) * maxShadow;
-            var shadowY = (y / height) * maxShadow;
+            var shadowX = -(1 - ((x + w) * 2) / width) * maxShadow;
+            var shadowY = -(1 - ((y + h) * 2) / height) * maxShadow * 1.5;
+            if (shadowX > maxShadow) shadowX = maxShadow;
             if (shadowX < -maxShadow) shadowX = -maxShadow;
             if (shadowY > maxShadow) shadowY = maxShadow;
+            if (shadowY < -maxShadow) shadowY = -maxShadow;
             TweenLite.fromTo(target, time, {
-                'boxShadow': '0 0 0 rgba(0,0,0,0.3)'
+                'boxShadow': '0 0 0 rgba(0,0,0,0.2)'
             }, {
-                'boxShadow': shadowX + 'px ' + shadowY + 'px ' + '0 rgba(0,0,0,0.3)'
+                'boxShadow': shadowX + 'px ' + shadowY + 'px ' + '0 rgba(0,0,0,0.2)'
             });
         },
         loadContent: function(url, target) {
