@@ -29,28 +29,26 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 */
 
+c::set('kirbytext.image.figure',false);
 c::set('oembed.lazyvideo', true);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('contact'));
 c::set('thumb.quality', 100);
 //c::set('thumbs.driver', 'im');
 c::set('routes', array(
-	// array(
-	// 	'pattern' => 'info/(:any)',
-	// 	'action'  => function($uri,$uid) {
-	// 		$page = site()->homePage();
-	// 		go($page);
-	// 	}
-	// 	),
 	array(
-		'pattern' => 'robots.txt',
-		'action' => function () {
-			return new Response('User-agent: *
-				Disallow: /content/*.txt$
-				Disallow: /kirby/
-				Disallow: /site/
-				Disallow: /*.md$
-				Sitemap: ' . u('sitemap.xml'), 'txt');
+		'pattern' => '(:any)',
+		'action'  => function() {
+			$page = site()->homePage();
+			go($page);
+		}
+		),
+	array(
+		'pattern' => '(:any)/(:all)',
+		'action'  => function() {
+			$page = site()->homePage();
+			go($page);
 		}
 		)
+	
 	));

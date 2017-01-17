@@ -5,21 +5,22 @@
 // Media queries
 $xl = 1600px
 $lg = 1260px
-$md = 1023px
-$sm = 767px
+$md = 1024px
+$sm = 768px
 
 // Colors
 $primary ?= #fff
 $secondary ?= #000
 $accent ?= #ff0000
+$stroke ?= rgba(0,0,0,0.3)
 
 // Metrics
-$padding = 10px
+$padding = 1rem
 
 // CSS Reset
 global-reset()
 
-webfont('Franklin Gothic', 'franklingothic', true, 'bold')
+webfont('R', 'R', true, 'normal')
 
 body,html
 	width 100%
@@ -32,14 +33,26 @@ html
 body
 	text-rendering optimizeLegibility
 	font-smoothing()
-	font-size 1rem
+	font-family 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+	font-size 1.3rem
+	+above($sm + 1)
+		overflow hidden
+		font-size 1.4rem
+
+h2
+	text-transform uppercase
+	letter-spacing .05em
 
 p
 	margin-bottom 1em
-	line-height 100%
+	line-height 150%
 
 p:last-child
 	margin-bottom 0
+
+::-webkit-scrollbar
+	width 0px
+	background transparent
 
 ::selection
 	background $secondary
@@ -56,12 +69,198 @@ a, a:hover, a:visited, a:focus
 	text-decoration none
 	cursor pointer
 
+.incrust
+	mix-blend-mode luminosity
+	vendor(filter,contrast(0.7))
+
+table.index
+	border none
+	white-space nowrap
+	table-layout initial
+	td, th
+		padding 0
+		border none
+		overflow hidden
+		height 1.2em
+	td:nth-child(1)
+		position relative
+		width 100%
+		p
+			padding-right .3em
+	td:nth-child(1)::after
+		content ''
+		display inline-block
+		height 1px
+		background $stroke
+		width 100%
+	td:nth-child(2)
+		padding-left .3em
+	span
+		margin 0
+		display inline-block
+	p
+		display inline
+	p:last-of-type
+		margin-bottom 0
+
 .loader
 	position fixed
 	width 100%
 	height 100%
 	top 0
 	left 0
-	background $primary url('../../images/loader.gif') center no-repeat
+	background $primary //url('../../images/loader.gif') center no-repeat
 	background-size 15px
 	z-index 10000
+
+#container
+	span(1)
+
+header, nav#menu
+	font-family 'R'
+	letter-spacing -.02em
+	padding $padding
+	position fixed
+	top 0
+	font-size 9vmax
+	+above($sm + 1)
+		font-size 14vh
+		height 60%
+		flexbox()
+		flex-direction column
+		justify-content space-between
+		z-index 5
+	+above($md + 1)
+		font-size 12vh
+	span
+		display block
+
+header
+	right 0
+	text-align right
+	cursor default
+
+nav#menu
+	left 0
+	pointer-events none
+	+below($sm)
+		display none
+	a
+		pointer-events auto
+
+#view
+	height 40vh
+	align()
+	z-index 0
+	vendor(filter, grayscale(1))
+	+below($sm)
+		display none
+
+#view:hover
+	z-index 10
+	vendor(filter, none)
+
+#post-it-container
+	span(1)
+	text-align center
+	+above($sm + 1)
+		height 100vh
+		overflow hidden
+	+below($sm)
+		margin-top 100vh
+
+.post-it
+	position relative
+	z-index 15
+	padding 1em
+	width 350px
+	cursor default
+	+above($sm + 1)
+		position absolute
+		visibility hidden
+		padding 1.5em
+	+below($sm)
+		display inline-block
+		transform(none !important)
+		width 90%
+		margin-bottom 2em
+		box-shadow(5px 5px 0 $stroke !important)
+	.topbar
+		span(1)
+		flexbox()
+		justify-content space-between
+		flex-direction row
+		padding-bottom 1em
+		border-bottom 1px solid $stroke
+		h2
+			width 100%
+			text-align center
+		.close
+			position relative
+			width 1em
+			height 1em
+			cursor pointer
+			span
+				display block
+				width 100%
+				height 1px
+				background $secondary
+				position absolute
+				top 50%
+				left 0
+			span:nth-child(1)
+				transform(rotate(45deg))
+			span:nth-child(2)
+				transform(rotate(-45deg))
+		.move
+			position relative
+			width 1em
+			height 1em
+			cursor -webkit-grab
+			span
+				display block
+				width 100%
+				height 1px
+				background $secondary
+				position absolute
+				left 0
+			span:nth-child(1)
+				top 20%
+			span:nth-child(2)
+				top 50%
+			span:nth-child(3)
+				bottom 10%
+	.item-content-item
+		span(1)
+		margin-top .5em
+		img
+			display block
+			width 100%
+			height auto
+	.text
+		text-align justify
+
+.post-it.medium
+	width 300px
+	+below($sm)
+		width 75%
+
+.post-it.small
+	width 300px
+	+below($sm)
+		width 60%
+		min-width 200px
+
+.post-it.visible
+	visibility visible
+
+.post-it.hide
+	+above($sm + 1)
+		display none
+
+.post-it.full
+	padding 0
+	.topbar
+		display none
+	.item-content-item
+		margin 0

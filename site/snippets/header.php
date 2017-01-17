@@ -51,6 +51,14 @@
 	<!-- <link rel="shortcut icon" href="<?php //url('assets/images/favicon.ico') ?>">
 	<link rel="icon" href="<?php //url('assets/images/favicon.ico') ?>" type="image/x-icon"> -->
 
+	<style>
+		<?php foreach ($pages->visible() as $key => $p): ?>
+		.post-it.<?= tagslug($p->title()) ?>-item {
+			background-color: <?= $p->color() ?>;
+		}
+		<?php endforeach ?>
+	</style>
+
 	<?php 
 	echo css('assets/css/build/build.min.css');
 	echo js('assets/js/vendor/modernizr.min.js');
@@ -69,3 +77,13 @@
 <body>
 
 <div class="loader"></div>
+
+<div id="container">
+
+<header>
+	<span>Upper</span>
+	<span>East</span>
+	<span>Stu</span>
+	<span>di</span>
+	<span>o</span>
+</header>
