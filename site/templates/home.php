@@ -4,7 +4,11 @@
 
 <?php foreach ($pages->visible()->children()->visible() as $key => $postit): ?>
 
-	<div class="post-it <?= tagslug($postit->parent()->title()) ?>-item <?= $postit->size() ?><?php e($postit->fullbleed()->bool(), ' full') ?>"<?php e($postit->color()->isNotEmpty(), 'style="background-color: '.$postit->color().'"') ?>>
+	<div class="post-it <?= tagslug($postit->parent()->title()) ?>-item <?= $postit->size() ?><?php e($postit->fullbleed()->bool(), ' full') ?>" 
+	data-x="<?= $postit->positionx() ?>" 
+	data-y="<?= $postit->positiony() ?>" 
+	data-z="<?= $postit->positionz() ?>" 
+	<?php e($postit->color()->isNotEmpty(), 'style="background-color: '.$postit->color().'"') ?>>
 		<div class="topbar">
 			<h2><?= $postit->title()->html() ?></h2>
 		</div>

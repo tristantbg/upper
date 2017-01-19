@@ -14,6 +14,24 @@ fields:
     default: no
     options: yes/no
     width: 1/2
+  positionx:
+    label: Position X
+    type: number
+    min: 0
+    max: 100
+    width: 1/3
+  positiony:
+    label: Position Y
+    type: number
+    min: 0
+    max: 100
+    width: 1/3
+  positionz:
+    label: Position Z
+    type: number
+    default: 1
+    min: 0
+    width: 1/3
   color:
     label: Override default color
     type: color

@@ -38,6 +38,8 @@ body
 	+above($sm + 1)
 		overflow hidden
 		font-size 1.4rem
+	+above($md + 1)
+		font-size 1vw
 
 h2
 	text-transform uppercase
@@ -71,7 +73,10 @@ a, a:hover, a:visited, a:focus
 
 .incrust
 	mix-blend-mode luminosity
-	vendor(filter,contrast(0.7))
+	filter(contrast(0.7))
+
+.grayscale
+	filter(grayscale(1))
 
 table.index
 	border none
@@ -173,7 +178,7 @@ nav#menu
 	position relative
 	z-index 15
 	padding 1em
-	width 350px
+	width 26em
 	cursor default
 	+above($sm + 1)
 		position absolute
@@ -241,12 +246,12 @@ nav#menu
 		text-align justify
 
 .post-it.medium
-	width 300px
+	width 22em
 	+below($sm)
 		width 75%
 
 .post-it.small
-	width 300px
+	width 22em
 	+below($sm)
 		width 60%
 		min-width 200px

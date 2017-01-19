@@ -83,13 +83,26 @@ $(function() {
                 $postit.each(function() {
                     var el = $(this);
                     el.removeClass('visible');
-                    var randX = rand(100, width - el.outerWidth() - 100);
-                    var randY = rand(100, height - el.outerHeight() - 100);
+                    var x = el.data('x');
+                    var y = el.data('y');
+                    var z = el.data('z');
+                    var posX, posY;
+                    if (x) {
+                        posX = x / 100 * width;
+                    } else {
+                        posX = rand(100, width - el.outerWidth() - 100);
+                    }
+                    if (y) {
+                        posY = y / 100 * height;
+                    } else {
+                        posY = rand(100, height - el.outerHeight() - 100);
+                    }
                     TweenLite.to(el, 0, {
-                        x: randX,
-                        y: randY,
-                        onComplete: function(){
-                          app.updateShadow(el);
+                        x: posX,
+                        y: posY,
+                        zIndex: 15+z,
+                        onComplete: function() {
+                            app.updateShadow(el);
                         }
                     });
                     setTimeout(function() {
@@ -97,7 +110,6 @@ $(function() {
                     }, interval);
                     interval += 500;
                 });
-                
             }
         },
         updateShadow: function(target, time, x, y) {
