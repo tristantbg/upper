@@ -1,6 +1,7 @@
 /* globals $:false */
 var width = $(window).width(),
     height = $(window).height(),
+    dragInstance,
     isMobile = false,
     maxShadow = 25,
     $root = '/';
@@ -13,10 +14,9 @@ $(function() {
             });
             $(document).ready(function($) {
                 $body = $('body');
-                app.sizeSet();
                 // var gridWidth = 200;
                 // var gridHeight = 100;
-                Draggable.create('.post-it', {
+                dragInstance = Draggable.create('.post-it', {
                     bounds: document.getElementById("post-it-container"),
                     throwProps: true,
                     edgeResistance: 0.9,
@@ -38,6 +38,7 @@ $(function() {
                         app.updateShadow($(this.target), 0, this.x, this.y);
                     }
                 });
+                app.sizeSet();
                 $body.on('click', '[data-target]', function(event) {
                     event.preventDefault();
                     var target = $(this).data('target');
@@ -63,12 +64,17 @@ $(function() {
         sizeSet: function() {
             width = $(window).width();
             height = $(window).height();
-            if (width <= 770 || Modernizr.touch) isMobile = true;
+            if (width <= 770) isMobile = true;
             if (isMobile) {
                 if (width >= 770) {
                     //location.reload();
                     isMobile = false;
                 }
+            }
+            if (isMobile) {
+              dragInstance[0].disable();
+            } else {
+              dragInstance[0].enable();
             }
         },
         scrollInView: function() {
