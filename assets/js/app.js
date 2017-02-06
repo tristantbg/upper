@@ -14,6 +14,7 @@ $(function() {
             });
             $(document).ready(function($) {
                 $body = $('body');
+                $body.scrollTop(0);
                 // var gridWidth = 200;
                 // var gridHeight = 100;
                 app.createDrag();
@@ -34,6 +35,7 @@ $(function() {
                     app.placePostIt();
                     $(".loader").fadeOut("fast", function() {
                         if (isMobile) {
+                            $body.css('overflow', 'hidden');
                             setTimeout(app.scrollInView, 1000);
                         }
                     });
@@ -86,7 +88,10 @@ $(function() {
         },
         scrollInView: function() {
             TweenLite.to($body, 1.3, {
-                scrollTop: height - 30
+                scrollTop: height - 30,
+                onComplete: function() {
+                    $body.css('overflow', 'auto');
+                }
             });
         },
         placePostIt: function() {
