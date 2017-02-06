@@ -1,3 +1,5 @@
+<!-- Design by VLF and Development by Tristan Bagot -->
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>

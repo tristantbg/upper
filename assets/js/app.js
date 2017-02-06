@@ -16,28 +16,7 @@ $(function() {
                 $body = $('body');
                 // var gridWidth = 200;
                 // var gridHeight = 100;
-                dragInstance = Draggable.create('.post-it', {
-                    bounds: document.getElementById("post-it-container"),
-                    throwProps: true,
-                    edgeResistance: 0.9,
-                    // snap: {
-                    //     x: function(endValue) {
-                    //         return Math.round(endValue / gridWidth) * gridWidth;
-                    //     },
-                    //     y: function(endValue) {
-                    //         return Math.round(endValue / gridHeight) * gridHeight;
-                    //     }
-                    // },
-                    onDrag: function() {
-                        app.updateShadow($(this.target), 0, this.x, this.y);
-                    },
-                    onThrowUpdate: function() {
-                        app.updateShadow($(this.target), 0, this.x, this.y);
-                    },
-                    onDragEnd: function() {
-                        app.updateShadow($(this.target), 0, this.x, this.y);
-                    }
-                });
+                app.createDrag();
                 app.sizeSet();
                 $body.on('click', '[data-target]', function(event) {
                     event.preventDefault();
@@ -64,18 +43,46 @@ $(function() {
         sizeSet: function() {
             width = $(window).width();
             height = $(window).height();
-            if (width <= 770) isMobile = true;
+            if (width <= 1025) isMobile = true;
             if (isMobile) {
-                if (width >= 770) {
+                if (width >= 1025) {
                     //location.reload();
                     isMobile = false;
                 }
             }
             if (isMobile) {
-              dragInstance[0].disable();
+                dragInstance.forEach(function(element) {
+                    element.disable();
+                });
             } else {
-              dragInstance[0].enable();
+                dragInstance.forEach(function(element) {
+                    element.enable();
+                });
             }
+        },
+        createDrag: function() {
+            dragInstance = Draggable.create('.post-it', {
+                bounds: document.getElementById("post-it-container"),
+                throwProps: true,
+                edgeResistance: 0.9,
+                // snap: {
+                //     x: function(endValue) {
+                //         return Math.round(endValue / gridWidth) * gridWidth;
+                //     },
+                //     y: function(endValue) {
+                //         return Math.round(endValue / gridHeight) * gridHeight;
+                //     }
+                // },
+                onDrag: function() {
+                    app.updateShadow($(this.target), 0, this.x, this.y);
+                },
+                onThrowUpdate: function() {
+                    app.updateShadow($(this.target), 0, this.x, this.y);
+                },
+                onDragEnd: function() {
+                    app.updateShadow($(this.target), 0, this.x, this.y);
+                }
+            });
         },
         scrollInView: function() {
             TweenLite.to($body, 1.3, {
@@ -106,7 +113,7 @@ $(function() {
                     TweenLite.to(el, 0, {
                         x: posX,
                         y: posY,
-                        zIndex: 15+z,
+                        zIndex: 15 + z,
                         onComplete: function() {
                             app.updateShadow(el);
                         }
