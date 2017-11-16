@@ -14,6 +14,7 @@
     "rupture": "*"
   },
   "dependencies": {
-    "gsap": "^1.19.0"
+    "gsap": "^1.19.0",
+    "lory.js": "^2.3.3"
   }
 }

@@ -33,6 +33,9 @@ $(function() {
                 });
                 $(window).load(function() {
                     app.placePostIt();
+                    $('.js_slider').lory({
+                        infinite: 1
+                    });
                     $(".loader").fadeOut("fast", function() {
                         if (isMobile) {
                             $body.css('overflow', 'hidden');

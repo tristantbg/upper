@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
             plugins: {
-                src: ['site/plugins/oembed/assets/js/oembed.js', 'node_modules/gsap/src/minified/TweenMax.min.js', 'node_modules/gsap/src/minified/utils/Draggable.min.js', '../libraries/GSAP/ThrowPropsPlugin.min.js'],
+                src: ['site/plugins/oembed/assets/js/oembed.js', 'node_modules/lory.js/dist/jquery.lory.min.js', 'node_modules/gsap/src/minified/TweenMax.min.js', 'node_modules/gsap/src/minified/utils/Draggable.min.js', '../libraries/GSAP/ThrowPropsPlugin.min.js'],
                 dest: 'assets/js/plugins.concat.js'
             },
             js: {
