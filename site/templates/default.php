@@ -1,5 +1,1 @@
-<?php snippet('header') ?>
-
-
-
-<?php snippet('footer') ?>
+<?php go($site->homePage()) ?>
