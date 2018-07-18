@@ -9,7 +9,7 @@ kirbytext::$tags['slider'] = array(
 
     foreach($tag->page()->images()->filterBy('filename', '*=', $tag->attr('slider'))->sortBy('filename') as $slide) {
       $html .= '<li class="js_slide">';
-      $html .= '<img src="' . $slide->width(500)->url() . '">';
+      $html .= '<img src="' . $slide->width(1000)->url() . '">';
       $html .= '</li>';
     }
 
